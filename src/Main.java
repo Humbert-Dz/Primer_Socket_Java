@@ -53,17 +53,21 @@ void main() {
     Scanner consola = new Scanner(System.in);
 
     String lecturaDeConsola;
-    System.out.println("Escribe lo que sea: ");
+    System.out.println("Escribe lo que sea! ");
 
     while (true) {
 
         //mostrar la respuesta del servidor
         try {
             System.out.println(sockInput.readLine());
+            lecturaDeConsola = consola.nextLine();
+            if (lecturaDeConsola.isBlank()) {
+                System.out.print("Ya no escribiste nada, ejercicio finalizado!");
+                break;
+            }
+            socketOuput.println(lecturaDeConsola);
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
-        lecturaDeConsola = consola.nextLine();
-        socketOuput.println(lecturaDeConsola);
     }
 }
