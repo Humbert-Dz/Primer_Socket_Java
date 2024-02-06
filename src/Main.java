@@ -8,10 +8,9 @@ import java.util.Scanner;
 void main() {
 
     //declaracion de arreglo con la ip del servidor Echo de internet
-    byte[] byteIp = {52, 43, 121, 77};
 
     // numero de puerto del servidor
-    int puerto = 9001;
+    int puerto = 1060;
 
     //objeto de tipo InetAddress
     InetAddress ip = null;
@@ -22,7 +21,7 @@ void main() {
     //manejar la posible excepcion que arroja el metodo getByAddress
     try {
         // obteniendo un objeto de tipo InetByAddress
-        ip = InetAddress.getByAddress(byteIp);
+        ip = InetAddress.getLocalHost();
     } catch (UnknownHostException e) {
         e.printStackTrace(System.out);
     }
@@ -52,22 +51,20 @@ void main() {
     //objeto Scanner para leer la consola
     Scanner consola = new Scanner(System.in);
 
-    String lecturaDeConsola;
     System.out.println("Escribe lo que sea! ");
+    String lecturaDeConsola = consola.nextLine();
 
-    while (true) {
-
+    while (!lecturaDeConsola.isBlank()) {
         //mostrar la respuesta del servidor
         try {
-            System.out.println(sockInput.readLine());
-            lecturaDeConsola = consola.nextLine();
-            if (lecturaDeConsola.isBlank()) {
-                System.out.print("Ya no escribiste nada, ejercicio finalizado!");
-                break;
-            }
+
             socketOuput.println(lecturaDeConsola);
+
+            System.out.println(sockInput.readLine());
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
+        lecturaDeConsola = consola.nextLine();
     }
+    System.out.print("Ya no escribiste nada, ejercicio finalizado!");
 }
